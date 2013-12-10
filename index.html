@@ -1,0 +1,46 @@
+<!-- <html manifest="offline.appcache"> -->
+<html>
+
+	<head>
+		<title>My App Name</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- External Refs. -->
+		<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Advent+Pro:400,100'>
+		<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
+		<script type='text/javascript' src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
+
+		<!-- Stylesheets -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/themes/default.css" id="themeCSS">
+		<link rel="stylesheet" type="text/css" href="js/messenger/css/messenger.css">
+		<link rel="stylesheet" type="text/css" href="js/messenger/css/messenger-theme-future.css">
+
+		<!-- Javascript -->
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/angularfire.min.js"></script>
+		<script type="text/javascript" src="js/angularTranslation.js"></script>
+		<script type="text/javascript" src="js/angularTranslationLoader.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/messenger/js/messenger.min.js"></script>
+		<script type="text/javascript" src="js/messenger/js/messenger-theme-future.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script>
+			//Google Analytics
+		</script>
+		<script type="text/javascript" src="app/custom.js"></script>
+		<script type="text/javascript" src="app/app.js"></script>
+		<script type="text/javascript" src="app/controllers.js"></script>
+		<script type="text/javascript" src="app/directives.js"></script>
+		<script type="text/javascript" src="app/services.js"></script>
+	</head>
+
+	<body ng-controller="MainCtrl">
+		<div ng-view></div>
+
+		<!-- Sitewide Modals -->
+		<div ng-include="'partials/user/settingsModal.html'"></div>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+{
+	"SITE":{
+		"HEADLINE": "The Herb Basket",
+		"NAV":{
+			"HOME":"Home",
+			"ABOUT":"About",
+			"CONTACT":"Contact",
+		}
+	},
+	"PAGES":{
+		"PAGE1":{
+			"TITLE":"tITLE 1"
+		}
+	}
+}

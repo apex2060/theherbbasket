@@ -1,0 +1,13 @@
+body{
+	background-color: #002;
+}
+nav.navbar{
+	background-color: #002;
+	padding: 20px 0px;
+}
+
+.navbar-brand{
+	font-family: 'Advent Pro', sans-serif;
+	font-weight: 100;
+	font-size: 40px;
+}

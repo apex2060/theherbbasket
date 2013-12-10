@@ -1,0 +1,7 @@
+body{}
+
+
+
+.hand, [ng-click]{
+	cursor: pointer;
+}

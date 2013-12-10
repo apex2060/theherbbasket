@@ -1,0 +1,44 @@
+CACHE MANIFEST
+
+# Created on 11/29/2013
+# Modified 11/30/2013 - 1:46
+
+CACHE:
+css/bootstrap.min.css
+css/font-awesome.min.css
+css/main.css
+css/themes/default.css
+js/messenger/css/messenger.css
+js/messenger/css/messenger-theme-future.css
+
+js/angular.min.js
+js/angularfire.min.js
+js/jquery.min.js
+js/messenger/js/messenger.min.js
+js/messenger/js/messenger-theme-future.js
+js/bootstrap.min.js
+
+app/custom.js
+app/app.js
+app/controllers.js
+app/directives.js
+app/services.js
+
+audio/switch.mp3
+fonts/fontawesome-webfont.eot
+fonts/fontawesome-webfont.svg
+fonts/fontawesome-webfont.ttf
+fonts/fontawesome-webfont.woff
+fonts/FontAwesome.otf
+
+partials/nav.html
+
+views/home.html
+views/main.html
+
+index.html
+
+
+
+NETWORK:
+*

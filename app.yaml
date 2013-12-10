@@ -1,0 +1,51 @@
+application: myappname
+version: 1
+runtime: php
+api_version: 1
+
+handlers:
+- url: /(.*\.html)
+  static_files: \1
+  upload: .*\.html
+
+
+- url: /app
+  static_dir: app
+
+- url: /audio
+  static_dir: audio
+
+- url: /css
+  static_dir: css
+
+- url: /fonts
+  static_dir: fonts
+
+- url: /img
+  static_dir: img
+
+- url: /js
+  static_dir: js
+
+- url: /json
+  static_dir: json
+
+- url: /languages
+  static_dir: languages
+
+- url: /partials
+  static_dir: partials
+
+- url: /views
+  static_dir: views
+
+- url: /
+  static_files: index.html
+  upload: index\.html
+
+- url: /favicon.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /api/.*
+  script: api/main.php
