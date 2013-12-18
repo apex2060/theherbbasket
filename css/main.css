@@ -38,3 +38,9 @@ header{
 .dropzone-image img{
 	max-width: 100%;
 }
+
+
+/*OVERRIDES*/
+header .headerdetails{
+	padding: 20px 0px;
+}
