@@ -1,6 +1,6 @@
 var it = {};
 
-var app = angular.module('MyAppName', ['firebase','pascalprecht.translate'])
+var app = angular.module('TheHerbBasket', ['firebase','pascalprecht.translate'])
 .config(function($routeProvider,$httpProvider,$translateProvider) {
 	$routeProvider
 	.when('/:view', {
@@ -19,5 +19,5 @@ var app = angular.module('MyAppName', ['firebase','pascalprecht.translate'])
 
 
 angular.element(document).ready(function() {
-	angular.bootstrap(document, ['MyAppName']);
+	angular.bootstrap(document, ['TheHerbBasket']);
 });

@@ -1,4 +1,4 @@
-application: myappname
+application: theherbbasket
 version: 1
 runtime: php
 api_version: 1
@@ -35,6 +35,9 @@ handlers:
 
 - url: /partials
   static_dir: partials
+
+- url: /sample
+  static_dir: sample
 
 - url: /views
   static_dir: views

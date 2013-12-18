@@ -7,18 +7,20 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="#">{{ 'SITE.HEADLINE' | translate }}</a>
+		<a class="navbar-brand" href="#">
+			<img src="img/logo.png" alt="The Herb Basket Logo">
+		</a>
 	</div>
 
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
-		<ul class="nav navbar-nav">
-			<li><a href="#/">{{ 'SITE.NAV.HOME' | translate }}</a></li>
-			<li><a href="#/about">{{ 'SITE.NAV.ABOUT' | translate }}</a></li>
-			<li><a href="#/contact">{{ 'SITE.NAV.CONTACT' | translate }}</a></li>
+		<ul class="nav navbar-nav tabs">
+			<li><a href="#/">{{ 'SITE.NAV.EDUCATION' | translate }}</a></li>
+			<li><a href="#/about">{{ 'SITE.NAV.SHOP' | translate }}</a></li>
+			<li><a href="#/contact">{{ 'SITE.NAV.ABOUT' | translate }}</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="" ng-click="tools.user.settings()">{{user.settings.name}} <i class="fa fa-cog"></i></a></li>
+			<li><a href="" ng-click="tools.user.settings()">{{user.name}} <i class="fa fa-cog"></i></a></li>
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Theme <b class="caret"></b></a>
 				<ul class="dropdown-menu">

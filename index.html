@@ -1,46 +1,73 @@
 <!-- <html manifest="offline.appcache"> -->
+<!DOCTYPE html>
 <html>
+<head>
+	<title>The Herb Basket</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Herbs, Health, Lifestyle, Healthy Eating, Provident Living">
 
-	<head>
-		<title>My App Name</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- External Refs. -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
+	<script type='text/javascript' src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
+	<script type='text/javascript' src="https://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 
-		<!-- External Refs. -->
-		<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Advent+Pro:400,100'>
-		<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
-		<script type='text/javascript' src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/simplepx.css" rel="stylesheet" media="screen">
+	<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+</head>
+<body ng-controller="MainCtrl">
+	<div ng-include="'partials/header.html'"></div>
+	<div id="maincontainer"> 
+		<div ng-include="'partials/site/main.html'"></div>
+		<!-- <div ng-view></div> -->
 
-		<!-- Stylesheets -->
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="stylesheet" type="text/css" href="css/themes/default.css" id="themeCSS">
-		<link rel="stylesheet" type="text/css" href="js/messenger/css/messenger.css">
-		<link rel="stylesheet" type="text/css" href="js/messenger/css/messenger-theme-future.css">
+		<div ng-include="'partials/footer.html'"></div>
+		<a id="gotop"><i class="icon-circle-arrow-up"></i></a> 
+	</div>
 
-		<!-- Javascript -->
-		<script type="text/javascript" src="js/angular.min.js"></script>
-		<script type="text/javascript" src="js/angularfire.min.js"></script>
-		<script type="text/javascript" src="js/angularTranslation.js"></script>
-		<script type="text/javascript" src="js/angularTranslationLoader.js"></script>
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/messenger/js/messenger.min.js"></script>
-		<script type="text/javascript" src="js/messenger/js/messenger-theme-future.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script>
-			//Google Analytics
-		</script>
-		<script type="text/javascript" src="app/custom.js"></script>
-		<script type="text/javascript" src="app/app.js"></script>
-		<script type="text/javascript" src="app/controllers.js"></script>
-		<script type="text/javascript" src="app/directives.js"></script>
-		<script type="text/javascript" src="app/services.js"></script>
-	</head>
 
-	<body ng-controller="MainCtrl">
-		<div ng-view></div>
+	<!-- JAVASCRIPT -->
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/angularfire.min.js"></script>
+	<script type="text/javascript" src="js/angularTranslation.js"></script>
+	<script type="text/javascript" src="js/angularTranslationLoader.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/messenger/js/messenger.min.js"></script>
+	<script type="text/javascript" src="js/messenger/js/messenger-theme-future.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-		<!-- Sitewide Modals -->
-		<div ng-include="'partials/user/settingsModal.html'"></div>
-	</body>
+	<!-- GOOGLE ANALYTICS -->
+	<script>
+	</script>
+
+	<script type="text/javascript" src="app/custom.js"></script>
+	<script type="text/javascript" src="app/app.js"></script>
+	<script type="text/javascript" src="app/controllers.js"></script>
+	<script type="text/javascript" src="app/directives.js"></script>
+	<script type="text/javascript" src="app/services.js"></script>
+	<!-- Placed at the end of the document so the pages load faster -->
+
+
+	<!-- PLUGINS --> 
+	<!-- jQuery Animation --> 
+	<!-- // <script src="sample/1/js/inview.js"></script>  -->
+	<script type="text/javascript" src="sample/1/js/jquery.carouFredSel-6.2.1-packed.js"></script> 
+	<script type="text/javascript" src="sample/1/js/jquery.mousewheel.min.js"></script> 
+	<script type="text/javascript" src="sample/1/js/jquery.touchSwipe.min.js"></script> 
+	<script type="text/javascript" src="sample/1/js/jquery.transit.min.js"></script> 
+	<script type="text/javascript" defer src="sample/1/js/jquery.flexslider.js"></script> 
+	<script type="text/javascript" src="sample/1/js/jquery.prettyPhoto.js"></script> 
+	<script type="text/javascript" src="sample/1/js/jquery.tweet.js"></script> 
+	<script type="text/javascript" src="sample/1/js/zoomsl-3.0.min.js"></script> 
+	<script type="text/javascript" src="sample/1/js/jquery.countdown.js"></script> 
+	<script type="text/javascript" src="sample/1/js/socialstream.jquery.js"></script> 
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script> 
+	<script type="text/javascript" src="sample/1/js/jquery.gmap.js"></script> 
+	<script type="text/javascript" src="sample/1/rs-plugin/js/jquery.themepunch.revolution.min.js"></script> 
+	<script type="text/javascript" src="sample/1/js/retina-1.1.0.min.js"></script> 
+	<script type="text/javascript" src="sample/1/js/custom.js"></script> 
+
+</body>
 </html>

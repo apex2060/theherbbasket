@@ -2,9 +2,9 @@
 	"SITE":{
 		"HEADLINE": "The Herb Basket",
 		"NAV":{
-			"HOME":"Home",
-			"ABOUT":"About",
-			"CONTACT":"Contact",
+			"EDUCATION":"Learning Center",
+			"SHOP":"Shop Compare and Plan",
+			"ABOUT":"Learn why I love herbs"
 		}
 	},
 	"PAGES":{

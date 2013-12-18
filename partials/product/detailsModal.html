@@ -1,0 +1,43 @@
+<div class="modal fade" id="productDetailsModal">
+	<div class="modal-dialog">
+		<form class="form-horizontal" ng-upload="tools.product.createProduct(content)" action="/upload?delay=yes">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Signup</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="productName" class="col-lg-3 control-label">Name</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="productName" placeholder="Name" ng-model="temp.product.name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="productDescription" class="col-lg-3 control-label">Description</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="productDescription" placeholder="Description" ng-model="temp.product.description">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="productPrice" class="col-lg-3 control-label">Price</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="productPrice" placeholder="Price" ng-model="temp.product.price">
+						</div>
+					</div>
+					<div>
+						<div class="dropzone" drop-to-upload="[image/png, image/jpeg, image/gif]" callback="tools.product.fileDrop" data-max-file-size="3">
+							<span>Drop Image Here</span>
+						</div>
+						<div class="dropzone-image">
+							<img ng-src={{temp.file.b64}} />
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-primary" value="Create Product">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
