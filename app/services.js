@@ -1,4 +1,8 @@
 app.factory('fireParse', function ($rootScope, $timeout, $routeParams, $http) {
+	/*
+	 *	REQUIRES:
+	 *	userSettingsModal
+	*/
 	var config = {
 		fireRoot: 'https://theherbbasket.firebaseio.com',
 		parseAppId: 'dqnxDqfyQDgXoB8xi2AF9sF8AtqWboBb6WmxcQYN',
@@ -46,20 +50,20 @@ app.factory('fireParse', function ($rootScope, $timeout, $routeParams, $http) {
 				signupParse(user)
 			},
 			signupParse:function(user){
-				fireParse.user.username = fireParse.user.email;
-				if(fireParse.user.password!=fireParse.user.password1){
+				user.username = user.email;
+				if(user.password!=user.password1){
 					notify('error','Your passwords do not match.');
 				}else{
-					delete fireParse.user.password1;
+					delete user.password1;
 					$http.post('https://api.parse.com/1/users', user).success(function(data){
-						fireParse.user.signupFire(user);
+						user.signupFire(user);
 					}).error(function(error, data){
 						console.log('signupParse error: ',error,data);
 					});
 				}
 			},
 			signupFire:function(user){
-				fireParse.user.auth.createUser(fireParse.user.email, fireParse.user.password, function(error, data) {
+				fireParse.user.auth.createUser(user.email, user.password, function(error, data) {
 					if(error)
 						console.log('signupFire error: ',error,data)
 					else
@@ -74,8 +78,8 @@ app.factory('fireParse', function ($rootScope, $timeout, $routeParams, $http) {
 			},
 			loginParse:function(user){
 				var login = {
-					username:fireParse.user.email,
-					password:fireParse.user.password
+					username:user.email,
+					password:user.password
 				}
 				$http.get("https://api.parse.com/1/login", {params: login}).success(function(data){
 					$http.defaults.headers.common['X-Parse-Session-Token'] = data.sessionToken;
