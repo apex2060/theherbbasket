@@ -1,0 +1,7 @@
+<h1>Explore</h1>
+<ul>
+	<li ng-repeat="category in product.categories">{{category.title}} 
+		<i ng-show="user.isAdmin" ng-click="tools.category.delete(category)" class="fa fa-trash-o fa-fw"></i>
+	</li>
+	<li ng-click="tools.category.addModal()">Add A Category</li>
+</ul>

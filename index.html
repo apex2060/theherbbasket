@@ -21,7 +21,7 @@
 <body ng-controller="MainCtrl">
 	<div ng-include="'partials/header.html'"></div>
 	<div id="maincontainer"> 
-		<div ng-include="'partials/site/main.html'"></div>
+		<div ng-view></div>
 		<!-- <div ng-view></div> -->
 
 		<div ng-include="'partials/footer.html'"></div>
@@ -30,14 +30,14 @@
 
 
 	<!-- JAVASCRIPT -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/angularfire.min.js"></script>
 	<script type="text/javascript" src="js/angularTranslation.js"></script>
 	<script type="text/javascript" src="js/angularTranslationLoader.js"></script>
-	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/messenger/js/messenger.min.js"></script>
 	<script type="text/javascript" src="js/messenger/js/messenger-theme-future.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 	<!-- GOOGLE ANALYTICS -->
 	<script>
@@ -45,9 +45,9 @@
 
 	<script type="text/javascript" src="app/custom.js"></script>
 	<script type="text/javascript" src="app/app.js"></script>
-	<script type="text/javascript" src="app/controllers.js"></script>
-	<script type="text/javascript" src="app/directives.js"></script>
 	<script type="text/javascript" src="app/services.js"></script>
+	<script type="text/javascript" src="app/directives.js"></script>
+	<script type="text/javascript" src="app/controllers.js"></script>
 	<!-- Placed at the end of the document so the pages load faster -->
 
 

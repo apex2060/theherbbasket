@@ -1,4 +1,5 @@
 app.factory('fireParse', function ($rootScope, $timeout, $routeParams, $http) {
+	var data = {};
 	/*
 	 *	REQUIRES:
 	 *	userSettingsModal
@@ -98,6 +99,21 @@ app.factory('fireParse', function ($rootScope, $timeout, $routeParams, $http) {
 			},
 			settings:function(){
 				$('#userSettingsModal').modal('show');
+			}
+		},
+		category:{
+			addModal:function(){
+				$('#categoryAddModal').modal('show');
+			},
+			add:function(){
+				if(!$rootScope.product)
+					$rootScope.product={};
+				if(!$rootScope.product.categories)
+					$rootScope.product.categories=[];
+
+				$rootScope.product.categories.push($rootScope.temp.category)
+				$rootScope.temp.category={};
+				$('#categoryAddModal').modal('hide');
 			}
 		},
 		product:{
