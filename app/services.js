@@ -114,6 +114,20 @@ app.factory('fireParse', function ($rootScope, $timeout, $routeParams, $http) {
 				$rootScope.product.categories.push($rootScope.temp.category)
 				$rootScope.temp.category={};
 				$('#categoryAddModal').modal('hide');
+			},
+			sub:{
+				addModal:function(category){
+					if(category)
+						$rootScope.temp.categoryInEdit = category;
+					$('#categoryAddSubModal').modal('show');
+				},
+				add:function(){
+					if(!$rootScope.temp.categoryInEdit.children)
+						$rootScope.temp.categoryInEdit.children = [];
+					$rootScope.temp.categoryInEdit.children.push($rootScope.temp.category)
+					$rootScope.temp.category={};
+					$('#categoryAddSubModal').modal('hide');
+				}
 			}
 		},
 		product:{

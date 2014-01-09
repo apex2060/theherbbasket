@@ -3,6 +3,23 @@ var it = {};
 var app = angular.module('TheHerbBasket', ['firebase','pascalprecht.translate'])
 .config(function($routeProvider,$translateProvider) {
 	$routeProvider
+	.when('/store', {
+		templateUrl: 'views/store/main.html',
+		controller: 'MainCtrl'
+	})
+	.when('/store/category/:catId', {
+		templateUrl: 'views/store/category.html',
+		controller: 'MainCtrl'
+	})
+	.when('/store/category/:catId/:subId', {
+		templateUrl: 'views/store/category.html',
+		controller: 'MainCtrl'
+	})
+	.when('/store/product/:id', {
+		templateUrl: 'views/store/product.html',
+		controller: 'MainCtrl'
+	})
+
 	.when('/:view', {
 		templateUrl: 'views/main.html',
 		controller: 'MainCtrl'

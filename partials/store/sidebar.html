@@ -1,7 +1,17 @@
-<h1>Explore</h1>
+<h1>Shop</h1>
 <ul>
-	<li ng-repeat="category in product.categories">{{category.title}} 
-		<i ng-show="user.isAdmin" ng-click="tools.category.delete(category)" class="fa fa-trash-o fa-fw"></i>
+	<li ng-repeat="category in product.categories" class="parent">
+		<a href="#/store/category/{{category.title}}">{{category.title}} 
+			<i ng-show="user.isAdmin" ng-click="tools.category.delete(category)" class="fa fa-trash-o fa-fw"></i>
+		</a>
+		<ul class="child">
+			<li ng-repeat="sub in category.children">
+				<a href="#/store/category/{{category.title}}/{{sub.title}}">{{sub.title}} 
+					<i ng-show="user.isAdmin" ng-click="tools.category.sub.delete(category,sub)" class="fa fa-trash-o fa-fw"></i>
+				</a>
+			</li>
+			<li ng-show="user.isAdmin"><a ng-click="tools.category.sub.addModal(category)">Add A Sub Category</a></li>
+		</ul>
 	</li>
-	<li ng-click="tools.category.addModal()">Add A Category</li>
+	<li ng-show="user.isAdmin"><a class="add" ng-click="tools.category.addModal()">Add A Category</a></li>
 </ul>

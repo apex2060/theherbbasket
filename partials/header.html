@@ -110,12 +110,7 @@
 					<li><a><i class="fa fa-dropbox fa-white font18"></i> Store</a>
 						<div>
 							<ul>
-								<li><a href="#/store/brand">Brand</a> </li>
-								<li><a href="#/store/product">Product Type</a> </li>
-								<li><a href="#/store/topic">Health Topic</a> </li>
-								<li><a href="#/store/body">Body System</a> </li>
-								<li><a href="#/store/gender">Gender Specific</a> </li>
-								<li><a href="#/store/children">Children</a> </li>
+								<li ng-repeat="cat in product.categories"><a href="#/store/{{cat.title}}">{{cat.title}}</a></li>
 							</ul>
 						</div>
 					</li>

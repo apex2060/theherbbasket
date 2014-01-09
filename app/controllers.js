@@ -2,6 +2,12 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 	$rootScope.temp={};
 	console.log('routeParams',$routeParams)
 	var tools = {
+		rp:function(param){
+			if($routeParams[param])
+				return $routeParams[param];
+			else
+				return 'main';
+		},
 		url:function(){
 			return 'views/'+$routeParams.view+'.html';
 		},
@@ -16,5 +22,17 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 	if($rootScope.user==undefined)
 		$scope.tools.user.init();
 	setup();
+	$rootScope.user = {};
+	$rootScope.user.isAdmin=true;
 	it.MainCtrl=$scope;
+});
+
+var CatCtrl = app.controller('CatCtrl', function($rootScope, $scope, $routeParams, $http, fireParse, angularFire){
+	$scope.catId = $routeParams.catId;
+	$scope.subId = $routeParams.subId;
+	var tools = {
+		category: fireParse.category
+	}
+	$scope.tools = tools;
+	it.CatCtrl=$scope;
 });

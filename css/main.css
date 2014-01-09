@@ -25,14 +25,61 @@ header{
 	min-height: 500px;
 	background: #FFF;
 	box-shadow: 0px 0px 15px #000;
+	border-right: 1px dashed #CCC;
 }
 #sidebar h1{
 	text-align: center;
-	color: #090;
-	border-bottom: 2px double #090;
+	color: #029440;
+	border-bottom: 2px double #029440;
+}
+#sidebar ul>li>a{
+	padding: 10px 5px;
+	box-shadow: 2px 2px 5px;
+	font-weight: bold;
+	display: block;
+}
+#sidebar ul>li>ul>li a{
+	padding: 5px 10px;
+	display: block;
+	border: 1px solid #CCC;;
+	border-left: 3px solid #CCC;
+	background: #EEE;
+}
+#sidebar .add{
+    padding: 10px;
+    text-align: right;
+    font-size: smaller;
+}#sidebar .fa{
+	float: right;
 }
 
+#main{
+	min-height: 500px;
+	margin-top: -40px;
+	background: #FFF;
+}
 
+.cards{
+    margin-top: 20px;
+}
+.card{
+    min-height: 200px;
+    border: 1px solid #CCC;
+}
+.card h3{
+	text-align: center;
+}
+.card.add h3{
+	margin: 0px;
+	line-height: 200px;
+}
+
+.child{
+	display: none;
+}
+.parent:hover .child{
+	display: block;
+}
 
 
 
