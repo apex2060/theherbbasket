@@ -29,9 +29,9 @@ img { max-width: 100%; height: auto;}
 .orange { color: #029440 }
 .m0 {margin:0px}
 .mt10 { margin-top: 10px; }
-.mt40 { margin-top: 40px; }
+.mt40 { /* margin-top: 40px; */ }
 .mt14 { margin-top: 14px }
-.mb40 { margin-bottom: 40px; }
+.mb40 { /* margin-bottom: 40px; */ }
 .mr10 { margin-right: 10px }
 .mt20 { margin-top: 20px }
 .ml0 { margin-left: 0px!important }
@@ -1057,7 +1057,7 @@ ul.latesttestimonialsfull > li { margin: 0 4px }
 }
 @media (max-width: 768px) {
 h1.headinglefttitle { font-size: 30px }
-.container { padding: 0 30px }
+.container { padding: 0 30px}
 ul.mainmenucontain > li { margin-bottom: 10px }
 .font96 { font-size: 60px }
 .processdetails { margin-left: 90px }
@@ -1086,7 +1086,7 @@ ul.latesttestimonialsfull > li:after { clear: both; display: block; height: 0; c
 #header4 ul.mainmenucontain { float: none!important; margin: 0 auto }
 #header5 ul.mainmenucontain > li a i { font-size: 24px }
 #header5 ul.mainmenucontain > li > a { padding: 5px; margin-top: 5px }
-#mainmenu { margin-bottom: 20px }
+#mainmenu { /* margin-bottom: 0px; */}
 #header6 .headerdetails { padding-bottom: 20px }
 .carousel li { margin: 0 15px }
 }
