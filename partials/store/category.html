@@ -1,15 +1,14 @@
-<div ng-controller="CatCtrl">
-	<nav>Category > {{catId}} > {{subId}}</nav>
+<div class="category">
+	<nav>Category > {{id}}</nav>
 	<div class="row cards">
-		<div class="col-xs-6 col-md-3">
-			<div class="card">
-				<h3>Some Cool Product</h3>
-				<div class="thumbnail"></div>
+		<div class="col-xs-6 col-md-3" ng-repeat="sub in category.children">
+			<div class="card full" ng-click="tools.hash('/store/subCategory/'+id+'/'+sub.title)">
+				<h3>{{sub.title}}</h3>
 			</div>
 		</div>
 		<div class="col-xs-6 col-md-3">
-			<div class="card add">			
-				<h3 ng-click="tools.product.addModal()">Add A Product</h3>
+			<div class="card add">
+				<h3 ng-click="tools.category.sub.add(category)">Add A Sub Category</h3>
 			</div>
 		</div>
 	</div>

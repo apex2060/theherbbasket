@@ -2,9 +2,43 @@
 	"SITE":{
 		"HEADLINE": "The Herb Basket",
 		"NAV":{
-			"EDUCATION":"Learning Center",
+			"HOME":{
+				"MAIN":"Home"
+			},
+			"EDUCATION":{
+				"MAIN":"Education",
+				"GETTING_STARTED":"Getting Started",
+				"ARTICLES":"Articles",
+				"RESOURCES":"Reseources",
+				"HELPOUT":"Google Helpout"
+			},
+			"COMMUNITY":{
+				"MAIN":"Community",
+				"BLOG":"Blog"
+			},
+			"STORE":{
+				"MAIN":"Store"
+			},
+			"BLOG":{
+				"MAIN":"Blog"
+			},
+			"GET_INVOLVED":"Get Involved",
 			"SHOP":"Shop Compare and Plan",
 			"ABOUT":"Learn why I love herbs"
+		},
+		"STORE":{
+			"MY_CART":"My Basket",
+			"ADD_TO_CART":"Add To Basket"
+		}
+	},
+	"STORE":{
+		"PHONE":"(435) 644-5464",
+		"CATEGORY":{
+
+		},
+		"PRODUCT":{
+			"ADD":{
+			}
 		}
 	},
 	"PAGES":{

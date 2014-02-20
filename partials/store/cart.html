@@ -1,0 +1,23 @@
+<div class="category">
+	<nav>Store > Cart</nav>
+	<div class="row cards">
+		<div class="col-xs-6 col-md-3">
+			<div class="card">
+				<h3>Details</h3>
+				<h4>Product Total: {{tools.store.total() | currency}}</h4>
+				<h4>Shipping: {{5 | currency}}</h4>
+				<hr>
+				<h4>Total: {{5+tools.store.total() | currency}}</h4>
+				<a class="btn btn-info btn-block" ng-click="tools.store.checkout()">Checkout</a>
+			</div>
+		</div>
+		<div class="col-xs-6 col-md-3" ng-repeat="product in cart">
+			<div class="card" ng-click="tools.hash('/store/product/'+product.objectId)">
+				<h3>{{product.name}}</h3>
+				<div class="thumbnail">
+					<img ng-src="{{product.img}}">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

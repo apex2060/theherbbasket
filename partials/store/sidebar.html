@@ -1,17 +1,21 @@
 <h1>Shop</h1>
 <ul>
-	<li ng-repeat="category in product.categories" class="parent">
+	<li ng-show="user.isAdmin"><a href="#/store/admin">Admin</a></li>
+	<li ng-repeat="category in data.categories" class="parent">
 		<a href="#/store/category/{{category.title}}">{{category.title}} 
 			<i ng-show="user.isAdmin" ng-click="tools.category.delete(category)" class="fa fa-trash-o fa-fw"></i>
+			<i ng-show="user.isAdmin" ng-click="tools.category.edit(category)" class="fa fa-pencil fa-fw"></i>
 		</a>
 		<ul class="child">
 			<li ng-repeat="sub in category.children">
-				<a href="#/store/category/{{category.title}}/{{sub.title}}">{{sub.title}} 
+				<a href="#/store/subCategory/{{category.title}}/{{sub.title}}">{{sub.title}} 
 					<i ng-show="user.isAdmin" ng-click="tools.category.sub.delete(category,sub)" class="fa fa-trash-o fa-fw"></i>
+					<i ng-show="user.isAdmin" ng-click="tools.category.sub.edit(category,sub)" class="fa fa-pencil fa-fw"></i>
 				</a>
 			</li>
-			<li ng-show="user.isAdmin"><a ng-click="tools.category.sub.addModal(category)">Add A Sub Category</a></li>
+			<li ng-show="user.isAdmin"><a ng-click="tools.category.sub.add(category)">Add A Sub Category</a></li>
 		</ul>
 	</li>
-	<li ng-show="user.isAdmin"><a class="add" ng-click="tools.category.addModal()">Add A Category</a></li>
+	<li ng-show="user.isAdmin"><a class="add" ng-click="tools.category.add()">Add A Category</a></li>
+	<li ng-show="user.isAdmin"><a class="add" ng-click="tools.product.add()">Add A Product</a></li>
 </ul>

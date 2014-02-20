@@ -1,17 +1,33 @@
 body{
-	background-image: url('http://st.gdefon.com/wallpapers_original/wallpapers/331408_leto_yasnoe_nebo_cvety_salatovyj_zabor_pole_doroga_1920x1080_(www.GdeFon.ru).jpg');
+	/*background-image: url('http://st.gdefon.com/wallpapers_original/wallpapers/331408_leto_yasnoe_nebo_cvety_salatovyj_zabor_pole_doroga_1920x1080_(www.GdeFon.ru).jpg');*/
 	background-attachment: fixed;
 }
 
 header{
-	background: #EFE;
+	background: #631;
+}
+.footer{
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
+	z-index: -2;
 }
 
-#maincontainer{
-	background: rgba(255,255,255,.5);
+.logo{
+	background: #FFE4C4;
+	border-radius: 1px;
+	padding: 10px;
+	box-shadow: 0px 0px 30px #FFF;
+}
+
+#maincontainer {
+	/*background: rgba(255, 255, 255, 0.5);*/
 	color: #111;
-	margin-top: -40px;
-	padding-top: 40px;
+	margin-bottom: 450px;
+}
+#maincontainer .mainview {
+	background: #FFF;
+	z-index: 1;
 }
 
 .container.full{
@@ -22,10 +38,8 @@ header{
 
 #sidebar{
 	margin-top: -40px;
-	min-height: 500px;
+	min-height: 1000px;
 	background: #FFF;
-	box-shadow: 0px 0px 15px #000;
-	border-right: 1px dashed #CCC;
 }
 #sidebar h1{
 	text-align: center;
@@ -54,9 +68,15 @@ header{
 }
 
 #main{
-	min-height: 500px;
+	min-height: 1000px;
 	margin-top: -40px;
 	background: #FFF;
+	border-left: 1px dashed #CCC;
+}
+#main>h1{
+	display: inline-block;
+	color: #029440;
+	border-bottom: 2px double #029440;
 }
 
 .cards{
@@ -65,26 +85,54 @@ header{
 .card{
     min-height: 200px;
     border: 1px solid #CCC;
+    margin: 15px 0px;
 }
 .card h3{
 	text-align: center;
 }
-.card.add h3{
+.card.add h3, .card.full h3{
 	margin: 0px;
 	line-height: 200px;
 }
-
-.child{
-	display: none;
+.card img {
+	height: 150px;
 }
-.parent:hover .child{
+
+.product .details{
+
+}
+.product .description{
+    padding: 15px;
+	
+    box-shadow: 0px 0px 15px;
+    margin: 15px 0px;
+}
+
+#newArticle textarea{
+	width: 100%;
+	height: 200px;
+}
+.articleImg{
 	display: block;
+	width: 200px;
+	height: 200px;
+	line-height: 200px;
+	text-align: center;
+	color: white;
+	background: #CCC;
+	border-radius: 200px;
+	margin: 5px auto;
 }
 
-
-
-
-
+.slides li{
+	border-radius: 15px;
+}
+.slides li a{
+	height: 170px;
+	padding: 15px;
+	background: #FFF;
+	border-radius: 15px;
+}
 
 .videoplaceholder {
 	height: 300px;
@@ -94,13 +142,25 @@ header{
 }
 
 
+
+
+
+.child{
+	display: none;
+}
+.parent:hover{
+	box-shadow: inset 2px 0px 5px;
+}.parent:hover .child{
+	display: block;
+}
 .hand, [ng-click]{
 	cursor: pointer;
 }
 
 .dropzone{
+	display: block;
 	width: 100%;
-	height: 100px;
+	min-height: 100px;
 	border: 4px dashed #CCC;
 	font-size: 30px;
 	line-height: 100px;
@@ -110,9 +170,23 @@ header{
 .dropzone-image img{
 	max-width: 100%;
 }
-
+img.grayscale {
+	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+}
 
 /*OVERRIDES*/
 header .headerdetails{
 	padding: 20px 0px;
+}
+select[multiple]{
+	width: 100%;
+	height: 200px;
+}
+
+@media (max-width: 768px) {
+	#main{
+		margin-top: 0px;
+	}
 }

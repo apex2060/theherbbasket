@@ -1,0 +1,18 @@
+<div class="category">
+	<nav>Category > {{id}} > {{subId}}</nav>
+	<div class="row cards">
+		<div class="col-xs-6 col-md-3" ng-repeat="product in tools.product.list(subId)| orderBy:'name'">
+			<div class="card" ng-click="tools.hash('/store/product/'+product.objectId)">
+				<h3>{{product.name}}</h3>
+				<div class="thumbnail">
+					<img ng-src="{{product.img}}">
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-md-3">
+			<div class="card add">
+				<h3 ng-click="tools.product.add()">Add A Product</h3>
+			</div>
+		</div>
+	</div>
+</div>

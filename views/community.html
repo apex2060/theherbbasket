@@ -1,0 +1,9 @@
+<div class="container full mt40" ng-controller="CommunityCtrl">
+	<div class="row">
+		<div id="sidebar" class="col-lg-3 col-sm-3 col-xs-12 hidden-xs" ng-include="'partials/community/sidebar.html'"></div>
+		<div id="main" class="col-lg-9 col-sm-9 col-xs-12" ng-include="'partials/community/'+view+'.html'"></div>
+	</div>
+</div>
+<div ng-include="'partials/community/category/addModal.html'"></div>
+<div ng-include="'partials/community/category/addSubModal.html'"></div>
+<div ng-include="'partials/community/product/addModal.html'"></div>

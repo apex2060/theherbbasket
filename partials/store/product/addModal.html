@@ -1,0 +1,56 @@
+<div class="modal fade" id="productAddModal">
+	<div class="modal-dialog">
+		<form class="form-horizontal" ng-submit="tools.product.save()">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Add A Product</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="productName" class="col-lg-3 control-label">Name</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="productName" placeholder="Name" ng-model="temp.product.name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="productDescription" class="col-lg-3 control-label">Description</label>
+						<div class="col-lg-9">
+							<textarea class="form-control" id="productDescription" placeholder="Description" ng-model="temp.product.description"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="productPrice" class="col-lg-3 control-label">Price</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="productPrice" placeholder="Price" ng-model="temp.product.price">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="productImg" class="col-lg-3 control-label">Image URL</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="productImg" placeholder="http://..." ng-model="temp.product.img">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="hiddenDetails" class="col-lg-3 control-label">Hidden Details</label>
+						<div class="col-lg-9">
+							<textarea class="form-control" id="hiddenDetails" placeholder="Dropshipper Name" ng-model="temp.product.hidden"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="productImg" class="col-lg-3 control-label">Categories</label>
+						<div class="col-lg-9">
+							<select multiple ng-model="temp.product.categories">
+								<optgroup ng-repeat="category in data.categories" label="{{category.title}}">
+								<option ng-repeat="sub in category.children">{{sub.title}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-primary" value="Save Product">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

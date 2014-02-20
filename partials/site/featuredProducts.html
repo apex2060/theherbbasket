@@ -1,0 +1,12 @@
+<section id="ourclient" class="container">
+	<h2 class="heading1"><span class="maintext">Featured Products</span></h2>   
+	<div class="col-md-12 carousel">
+		<ul class="slides">
+			<li ng-repeat="feature in tools.product.getList(data.store.featured)">
+				<a href="#/store/product/{{feature.objectId}}">
+					<img ng-src="{{feature.img}}">
+				</a>
+			</li>
+		</ul>
+	</div>
+</section>

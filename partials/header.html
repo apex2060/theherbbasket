@@ -1,8 +1,13 @@
 <header>
 	<div class="headerdetails">
-		<div class="container"> <a class="logo pull-left" href="index.html"><img title="Simplepx" alt="Simplepx" src="img/logo.png"></a> 
+		<div class="container"> 
+			<a class="logo pull-left" href="index.html"><img title="Simplepx" alt="Simplepx" src="img/logo.png"></a> 
 			<div class="socialtop pull-right">
-				<div class="call"><i class="fa fa-phone"></i> Call Us : <span class="orange"> {{'STORE.PHONE' | translate}}</span></div>
+				<div class="call" ng-show="user"><a href="#/user">{{user.name}} <i class="fa fa-cog"></i></a></div>
+				<div class="call" ng-hide="user">
+					<span class="orange" ng-click="tools.user.loginModal()">{{'SITE.LOGIN' | translate}}</span> | 
+					<span class="orange" ng-click="tools.user.signupModal()">{{'SITE.SIGNUP' | translate}}</span>
+				</div>
 				<ul class="pull-right">
 					<li><a class="tooltip-test"  data-original-title="Facebook"  ><i class="fa fa-facebook"></i></a></li>
 					<li><a class="tooltip-test"  data-original-title="Twitter"  ><i class="fa fa-twitter"></i></a></li>
@@ -11,6 +16,7 @@
 					<li><a class="tooltip-test"  data-original-title="Pinterest"  ><i class="fa fa-pinterest"></i></a></li>
 					<li><a class="tooltip-test"  data-original-title="Skype"  ><i class="fa fa-skype"></i></a></li>
 				</ul>
+				<div class="call"><i class="fa fa-phone"></i> Call Us : <span class="orange"> {{'STORE.PHONE' | translate}}</span></div>
 			</div>
 			<div class="pull-right topsearch">
 				<form class="form-inline">
@@ -24,7 +30,7 @@
 		<nav class="subnav">
 			<div class="container menurelative">
 				<ul class="nav-pills mainmenucontain container">
-					<li> <a class="active home" href="index.html"><i class="fa fa-home fa-white font18"></i> <span>Home</span></a>
+					<li> <a ng-class="tools.active('home')" class="home" href="#/home"><i class="fa fa-home fa-white font18"></i> <span>Home</span></a>
 						<div>
 							<h4 class="menutitle">Home Page Styles</h4>
 							<div class="mega">
@@ -62,10 +68,10 @@
 							</div>
 						</div>
 					</li>
-					<li><a><i class="fa fa-shopping-cart fa-white font18"></i> Education</a>
+					<li><a ng-class="tools.active('education')" href="#/education/main"><i class="fa fa-lightbulb-o fa-white font18"></i> Education</a>
 						<div>
 							<ul>
-								<li><a href="#/education/home.html">Getting Started</a> </li>
+								<li><a href="#/education/main">Getting Started</a> </li>
 								<li><a>Articles</a>
 									<div>
 										<ul>
@@ -95,7 +101,7 @@
 							</ul>
 						</div>
 					</li>
-					<li><a><i class="fa fa-comments-o fa-white font18"></i> Community</a>
+					<li><a ng-class="tools.active('community')" href="#/"><i class="fa fa-comments-o fa-white font18"></i> Community</a>
 						<div>
 							<ul>
 								<li><a href="blog.html">Blog 3 Column</a> </li>
@@ -107,14 +113,14 @@
 							</ul>
 						</div>
 					</li>
-					<li><a><i class="fa fa-dropbox fa-white font18"></i> Store</a>
+					<li><a ng-class="tools.active('store')" href="#/store/main"><i class="fa fa-dropbox fa-white font18"></i> Store</a>
 						<div>
 							<ul>
-								<li ng-repeat="cat in product.categories"><a href="#/store/{{cat.title}}">{{cat.title}}</a></li>
+								<li ng-repeat="cat in data.categories"><a href="#/store/category/{{cat.title}}">{{cat.title}}</a></li>
 							</ul>
 						</div>
 					</li>
-					<li> <a><i class="fa fa-comment fa-white font18"></i> Blog</a>
+					<li> <a><i class="fa fa-list-alt fa-white font18"></i> Blog</a>
 						<div>
 							<ul>
 								<li><a href="aboutus.html">About Me</a> </li>
@@ -126,7 +132,8 @@
 						</div>
 					</li>
 				</ul>
-				<a  class="quickcontact"><i class="fa fa-check"></i> Get Involved</a> 
+				<a  class="quickcontact" ng-hide="cart.length>0"><i class="fa fa-check"></i> Get Involved</a> 
+				<a  class="quickcart" ng-show="cart.length>0" href="#/store/cart">({{cart.length}}) {{'SITE.STORE.MY_CART' | translate}}</a> 
 			</div>
 		</nav>
 	</div>
