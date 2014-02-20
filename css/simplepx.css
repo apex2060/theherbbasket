@@ -306,7 +306,7 @@ ul.mainmenucontain > li:hover > a, ul.mainmenucontain > li > a.active, ul.mainme
 ul.mainmenucontain > li a.home span { text-indent: -9999px; }
 ul.mainmenucontain > li:last-child { border: none }
 ul.mainmenucontain > li > a { text-decoration: none; display: block; z-index: 6; position: relative; color: #4b5b58!Important; text-transform: uppercase; font-size: 14px; padding: 5px 12px; margin: 0 6px 0 0 }
-ul.mainmenucontain > li + li > a { margin-left: 6px }
+ul.mainmenucontain > li + li > a { margin-left: 6px ;}
 ul.mainmenucontain > li > div { display: table; padding: 8px 12px 12px; position: absolute; top: 100%; left: 0px; z-index: 99999; display: none; list-style: none; background-color: #ffffff; border: 1px solid #E7E7E7; -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); min-width: 220px; border-top: 4px solid #029440; -moz-box-sizing : content-box; -webkit-box-sizing : content-box; box-sizing : content-box; }
 ul.mainmenucontain > li:last-child > div { right: 6px; left: auto }
 ul.mainmenucontain > li + li > div { left: 6px }
