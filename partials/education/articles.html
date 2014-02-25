@@ -1,0 +1,20 @@
+<div id="articles">
+	<nav>Education > Articles</nav>
+	<div class="row cards">
+		<div class="col-xs-6 col-md-3" ng-repeat="article in education.articles">
+			<div class="card full" ng-click="tools.hash('/education/articles/'+article.objectId)">
+				<h3>{{article.title}}</h3>
+			</div>
+		</div>
+		<div class="col-xs-6 col-md-3">
+			<div class="card full">
+				<h3><a href="#/education/herbs">Herbs</a></h3>
+			</div>
+		</div>
+		<div class="col-xs-6 col-md-3">
+			<div class="card add">
+				<h3><a href="#/education/add">Add An Article</a></h3>
+			</div>
+		</div>
+	</div>
+</div>

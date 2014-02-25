@@ -1,0 +1,57 @@
+<div class="modal fade" id="articleAddModal">
+	<div class="modal-dialog">
+		<form class="form-horizontal" ng-submit="tools.article.save()">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Add An Article</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="articleName" class="col-lg-3 control-label">Title</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="articleName" placeholder="Title" ng-model="temp.article.title">
+						</div>
+					</div>
+					<dropfile class="dropzone" callback="tools.picture.preview", tools="tools">
+						<span ng-show="tools.picture.status() == 'waiting'">Drop Picture Here</span>
+						<span ng-show="tools.picture.status() == 'pending'" ng-click="tools.picture.upload()">Click To Upload</span>
+						<span ng-show="tools.picture.status() == 'uploading'">Uploading...</span>
+						<span ng-show="tools.picture.status() == 'uploaded'">Upload Complete!</span>
+						<img id="preview" ng-src="">
+					</dropfile>
+					<div class="form-group">
+						<label for="articleImg" class="col-lg-3 control-label">Image URL</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="articleImg" placeholder="http://..." ng-model="temp.article.img" ng-change="tools.picture.update(temp.article.img)">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="articleHtml" class="col-lg-3 control-label">Article</label>
+						<div class="col-lg-9">
+							<textarea class="form-control large" id="articleHtml" placeholder="Article" ng-model="temp.article.html"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="productLinks" class="col-lg-3 control-label">Product Links</label>
+						<div class="col-lg-9">
+							<select id="productLinks" ng-model="temp.article.products" ng-options="p.objectId as p.name for p in data.products | orderBy:'name'" multiple></select>
+						</div>
+					</div>
+					<!-- <div class="form-group">
+						<label class="col-lg-3 control-label">Categories</label>
+						<div class="col-lg-9">
+							<select multiple ng-model="temp.article.categories">
+								<optgroup ng-repeat="category in data.categories" label="{{category.title}}">
+								<option ng-repeat="sub in category.children">{{sub.title}}</option>
+							</select>
+						</div>
+					</div> -->
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-primary" value="Save Article">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
