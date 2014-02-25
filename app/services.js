@@ -163,7 +163,7 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 		},
 		parseList:function(){
 			$http.get(config.parseRoot+'classes/category?order=sequence').success(function(data){
-				$rootScope.data.categories = data.results;
+				$rootScope.data.store.categories = data.results;
 			}).error(function(data){
 				console.log('Error: ',data)
 			});
@@ -182,14 +182,14 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 			}, 1000);
 		},
 		save:function(){
-			if(!$rootScope.data.categories)
-				$rootScope.data.categories = [];
+			if(!$rootScope.data.store.categories)
+				$rootScope.data.store.categories = [];
 			var category = $rootScope.temp.category;
 			delete category.createdAt;
 			delete category.updatedAt;
 
 			if(!category.objectId){
-				category.sequence = $rootScope.data.categories.length;
+				category.sequence = $rootScope.data.store.categories.length;
 				$http.post(config.parseRoot+'classes/category', angular.fromJson(angular.toJson(category))).success(function(data){
 					categoryService.parseList();
 				}).error(function(data){
@@ -223,10 +223,10 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 			}, 1000);
 		},
 		get:function(id){
-			if($rootScope.data.categories)
-				for(var i=0; i<$rootScope.data.categories.length; i++)
-					if($rootScope.data.categories[i].title == id)
-						return $rootScope.data.categories[i];
+			if($rootScope.data.store.categories)
+				for(var i=0; i<$rootScope.data.store.categories.length; i++)
+					if($rootScope.data.store.categories[i].title == id)
+						return $rootScope.data.store.categories[i];
 		},
 		sub:{
 			add:function(category){
@@ -304,7 +304,7 @@ app.factory('productService', function ($rootScope, $http, config) {
 	var productService = {
 		parseList:function(){
 			$http.get(config.parseRoot+'classes/product').success(function(data){
-				$rootScope.data.products = data.results;
+				$rootScope.data.store.products = data.results;
 			}).error(function(data){
 				console.log('Error: ',data)
 			});
@@ -343,18 +343,18 @@ app.factory('productService', function ($rootScope, $http, config) {
 		},
 		list:function(category){
 			var returnArray = [];
-			if($rootScope.data && $rootScope.data.products)
-				for(var i=0; i<$rootScope.data.products.length; i++)
-					if($rootScope.data.products[i].categories)
-						if($rootScope.data.products[i].categories.indexOf(category) != -1)
-							returnArray.push($rootScope.data.products[i])
+			if($rootScope.data && $rootScope.data.store.products)
+				for(var i=0; i<$rootScope.data.store.products.length; i++)
+					if($rootScope.data.store.products[i].categories)
+						if($rootScope.data.store.products[i].categories.indexOf(category) != -1)
+							returnArray.push($rootScope.data.store.products[i])
 			return returnArray;
 		},
 		get:function(id){
-			if($rootScope.data.products)
-				for(var i=0; i<$rootScope.data.products.length; i++)
-					if($rootScope.data.products[i].objectId == id)
-						return $rootScope.data.products[i];
+			if($rootScope.data.store.products)
+				for(var i=0; i<$rootScope.data.store.products.length; i++)
+					if($rootScope.data.store.products[i].objectId == id)
+						return $rootScope.data.store.products[i];
 		},
 		getList:function(list){
 			if(list){

@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-4">
 		<h1>Featured Products</h1>
-		<select ng-model="data.store.featured" ng-options="p.objectId as p.name for p in data.products | orderBy:'name'" multiple></select>
+		<select ng-model="data.store.featured" ng-options="p.objectId as p.name for p in data.store.products | orderBy:'name'" multiple></select>
 		<a class="btn btn-block btn-success" title="Save" ng-click="tools.store.featured.save(data.store.featured)">Save Featured Products</a>
 	</div>
 </div>

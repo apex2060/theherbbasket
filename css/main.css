@@ -102,10 +102,26 @@ header{
 
 }
 .product .description{
-    padding: 15px;
-	
-    box-shadow: 0px 0px 15px;
-    margin: 15px 0px;
+	padding: 20px;
+	box-shadow: inset 0px 0px 14px 1px #654;
+	margin: 15px 0px;
+	border-radius: 5px;
+	background: #F2F2F2;
+	border: 3px double #654;
+}
+.product .prod_picture{
+	width: 200px;
+	height: 200px;
+	margin: 60px auto;
+	box-shadow: 0px 0px 14px 1px #654;
+	border: 3px double #654;
+	border-radius: 5px;
+	display: inherit;
+}
+.product .prod_picture img{
+	height: 150px;
+	margin: 25px auto;
+	display: inherit;
 }
 
 #newArticle textarea{

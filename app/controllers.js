@@ -35,7 +35,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 	if($rootScope.user==undefined)
 		$scope.tools.user.init();
 
-	if(!$rootScope.data.products)
+	if(!$rootScope.data.store)
 		tools.setup();
 	setup();
 
@@ -60,12 +60,12 @@ var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeP
 	$scope.tools = tools;
 
 	if($scope.view=='product' && $routeParams.id)
-		$rootScope.$watch('data.products', function (products) {
+		$rootScope.$watch('data.store.products', function (products) {
 			$scope.product = tools.product.get($routeParams.id);
 		}, true);
 
 	if($scope.view=='category' && $routeParams.id)
-		$rootScope.$watch('data.categories', function (categories) {
+		$rootScope.$watch('data.store.categories', function (categories) {
 			$scope.category = tools.category.get($routeParams.id);
 		}, true);
 

@@ -41,7 +41,7 @@
 						<label for="productImg" class="col-lg-3 control-label">Categories</label>
 						<div class="col-lg-9">
 							<select multiple ng-model="temp.product.categories">
-								<optgroup ng-repeat="category in data.categories" label="{{category.title}}">
+								<optgroup ng-repeat="category in data.store.categories" label="{{category.title}}">
 								<option ng-repeat="sub in category.children">{{sub.title}}</option>
 							</select>
 						</div>

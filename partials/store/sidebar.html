@@ -1,7 +1,7 @@
 <h1>Shop</h1>
 <ul>
 	<li ng-show="user.isAdmin"><a href="#/store/admin">Admin</a></li>
-	<li ng-repeat="category in data.categories" class="parent">
+	<li ng-repeat="category in data.store.categories" class="parent">
 		<a href="#/store/category/{{category.title}}">{{category.title}} 
 			<i ng-show="user.isAdmin" ng-click="tools.category.delete(category)" class="fa fa-trash-o fa-fw"></i>
 			<i ng-show="user.isAdmin" ng-click="tools.category.edit(category)" class="fa fa-pencil fa-fw"></i>
