@@ -20,7 +20,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 			document.getElementById('themeCSS').href='/css/themes/'+theme+'.css';
 		},
 		setup:function(){
-			$rootScope.data={store:{}};
+			$rootScope.data={store:{},education:{}};
 			tools.category.parseList();
 			tools.product.parseList();
 			tools.store.featured.parseList();
@@ -73,23 +73,25 @@ var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeP
 	it.StoreCtrl=$scope;
 });
 
-var EducationCtrl = app.controller('EducationCtrl', function($rootScope, $scope, $routeParams, $http, productService, articleService, fileService){
-	$scope.view = $routeParams.view;
-	$scope.id = $routeParams.id;
+var EducationCtrl = app.controller('EducationCtrl', 
+	function($rootScope, $scope, $routeParams, $http, productService, articleService, fileService){
+		$scope.view = $routeParams.view;
+		$scope.id = $routeParams.id;
 
-	var tools = {
-		hash: function(url){
-			window.location.hash = url;
-		},
-		article:articleService,
-		product: productService,
-		file: fileService
+		var tools = {
+			hash: function(url){
+				window.location.hash = url;
+			},
+			article:articleService,
+			product: productService,
+			file: fileService
+		}
+		$scope.tools = tools;
+
+
+		it.EducationCtrl=$scope;
 	}
-	$scope.tools = tools;
-
-
-	it.EducationCtrl=$scope;
-});
+);
 
 var CommunityCtrl = app.controller('CommunityCtrl', function($rootScope, $scope, $routeParams, $http, angularFire){
 	$scope.view = $routeParams.view;

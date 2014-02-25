@@ -12,7 +12,7 @@
 				<a class="btn btn-info" ng-click="tools.store.addToCart(product)" title="Buy">{{'SITE.STORE.ADD_TO_CART' | translate}}</a>
 				<a class="btn btn-warning" ng-click="tools.product.edit(product)" ng-show="user.isAdmin" title="Edit"><i class="fa fa-pencil"></i></a>
 				<a class="btn btn-danger" ng-click="tools.product.delete(product)" ng-show="user.isAdmin" title="Delete"><i class="fa fa-trash-o"></i></a>
-				<div class="description" ng-bind-html-unsafe="product.description"></div>
+				<div class="description old_rust" ng-bind-html-unsafe="product.description"></div>
 			</div>
 		</div>
 	</div>
