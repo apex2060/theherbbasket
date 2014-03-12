@@ -53,6 +53,9 @@ var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeP
 		hash: function(url){
 			window.location.hash = url;
 		},
+		setFeatured:function(){
+			$scope.featured = tools.product.getList($rootScope.data.store.featured);
+		},
 		store: storeService,
 		category: categoryService,
 		product: productService
@@ -69,6 +72,8 @@ var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeP
 		$rootScope.$watch('data.store.categories', function (categories) {
 			$scope.category = tools.category.get($routeParams.id);
 		}, true);
+
+    // $scope.images=[{src:'img1.png',title:'Pic 1'},{src:'img2.jpg',title:'Pic 2'},{src:'img3.jpg',title:'Pic 3'},{src:'img4.png',title:'Pic 4'},{src:'img5.png',title:'Pic 5'}]; 
 
 
 	it.StoreCtrl=$scope;
