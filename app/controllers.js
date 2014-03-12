@@ -44,7 +44,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 
 
 
-var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeParams, $http, storeService, categoryService, productService){
+var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeParams, $http, $sce, storeService, categoryService, productService){
 	$scope.view = $routeParams.view;
 	$scope.id = $routeParams.id;
 	$scope.subId = $routeParams.subId;
@@ -62,6 +62,7 @@ var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeP
 	if($scope.view=='product' && $routeParams.id)
 		$rootScope.$watch('data.store.products', function (products) {
 			$scope.product = tools.product.get($routeParams.id);
+			$scope.product.description = $sce.trustAsHtml($scope.product.description);
 		}, true);
 
 	if($scope.view=='category' && $routeParams.id)

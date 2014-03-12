@@ -1,7 +1,13 @@
 var it = {};
 
-var app = angular.module('TheHerbBasket', ['firebase','pascalprecht.translate'])
-.config(function($routeProvider,$translateProvider) {
+var app = angular.module('TheHerbBasket', ['firebase','pascalprecht.translate','ngAnimate','ngRoute'])
+.config(function($routeProvider,$translateProvider,$sceDelegateProvider) {
+	$sceDelegateProvider.resourceUrlWhitelist([
+		'self',
+		'https://api.parse.com/1/**'
+	]);
+
+
 	$routeProvider
 		.when('/store/:view', {
 			templateUrl: 'views/store.html',
