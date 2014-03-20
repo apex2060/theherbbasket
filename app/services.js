@@ -118,10 +118,6 @@ app.factory('userService', function ($rootScope, $http, config) {
 
 
 app.factory('storeService', function ($rootScope, $http, config) {
-	if(!$rootScope.cart){
-		$rootScope.cart = [];
-	}
-
 	var storeService = {
 		addToCart:function(product){
 			if(product)
@@ -360,15 +356,8 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 
 
 
-app.factory('productService', function ($rootScope, $http, config) {
+app.factory('productService', function ($rootScope, $http, config, dataService) {
 	var productService = {
-		parseList:function(){
-			$http.get(config.parseRoot+'classes/product').success(function(data){
-				$rootScope.data.store.products = data.results;
-			}).error(function(data){
-				console.log('Error: ',data)
-			});
-		},
 		add:function(){
 			$('#productAddModal').modal('show');
 		},

@@ -28,11 +28,6 @@
 
 //PROD CONFIG
 app.factory('config', function ($rootScope, $http) {
-	if(!$rootScope.data){
-		$rootScope.data = {};
-		$rootScope.temp = {};
-	}
-
 	var config = {
 		fireRoot: 			'https://theherbbasketllc.firebaseio.com/',
 		fireRef: 			new Firebase('https://theherbbasketllc.firebaseio.com/'),
