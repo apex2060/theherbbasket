@@ -98,6 +98,25 @@ app.factory('userService', function ($rootScope, $http, config) {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.factory('storeService', function ($rootScope, $http, config) {
 	if(!$rootScope.cart){
 		$rootScope.cart = [];
@@ -148,6 +167,25 @@ app.factory('storeService', function ($rootScope, $http, config) {
 	it.storeService = storeService;
 	return storeService;
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
@@ -300,6 +338,28 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.factory('productService', function ($rootScope, $http, config) {
 	var productService = {
 		parseList:function(){
@@ -371,6 +431,17 @@ app.factory('productService', function ($rootScope, $http, config) {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
 app.factory('fileService', function ($http, config) {
 	var fileService = {
 		upload:function(details,b64,successCallback,errorCallback){
@@ -390,6 +461,21 @@ app.factory('fileService', function ($http, config) {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.factory('educationService', function ($rootScope, $http, config) {
 	var educationService = {
 		article:{
@@ -404,100 +490,290 @@ app.factory('educationService', function ($rootScope, $http, config) {
 });
 
 
-app.factory('articleService', function ($rootScope, $http, config, fileService) {
-	var articleService = {
-		parseList:function(){
-			$http.get(config.parseRoot+'classes/article').success(function(data){
-				$rootScope.data.articles = data.results;
-			}).error(function(data){
-				console.log('Error: ',data)
-			});
-		},
-		// add:function(){
-		// 	$('#articleAddModal').modal('show');
-		// },
-		// edit:function(article){
-		// 	$rootScope.temp.article = article;
-		// 	$('#articleAddModal').modal('show');
-		// },
-		setPicture: function(details,src){
-			if(!$rootScope.temp.article)
-				$rootScope.temp.article = {};
-			$rootScope.$apply(function(){
-				$rootScope.temp.article.picture = {
-					temp: true,
-					status: 'uploading',
-					class: 'grayscale',
-					name: 'Image Uploading...',
-					src: src
-				};
-			})
 
-			if($rootScope.user){
-				console.log('Uploading picture')
-				fileService.upload(details,src,function(data){
-					console.log('Picture Uploaded')
-					$rootScope.$apply(function(){
-						$rootScope.temp.article.picture = {
-							name: data.name(),
-							src: data.url()
-						}
-					})
-				});
-			}else{
-				$rootScope.temp.article.picture.name = "You must sign in before you can upload media.";
+
+
+
+
+
+
+
+
+
+
+
+
+app.factory('dataService', function ($rootScope, $http, $q, config, Firebase) {
+	//Set local dataStore obj if it doesn't exist
+	if(!localStorage.getItem('RQdataStore'))
+		localStorage.setItem('RQdataStore', angular.toJson({
+			resource: {},
+			resourceList: [],
+			notLocal:[], 
+			wip: {}
+		}))
+
+	//Load local dataStore
+	var dataStore = angular.fromJson(localStorage.getItem('RQdataStore'));
+
+
+
+	var DS = {
+		data: function(){
+			return dataStore;
+		},
+		resourceList: function(){
+			return dataStore.resourceList;
+		},
+		localSave:function(){
+			var tempData = angular.fromJson(angular.toJson(dataStore))
+				for(var i=0; i<tempData.notLocal.length; i++)
+					delete tempData.resource[tempData.notLocal[i]]
+			localStorage.setItem('RQdataStore', angular.toJson(tempData))
+		},
+		wip: {
+			add: function(identifier, object){
+				if(object.objectId){
+					if(!dataStore.wip[identifier])
+						dataStore.wip[identifier] = {};
+					dataStore.wip[identifier][object.objectId] = object;
+					DS.localSave();
+				}
+			},
+			remove: function(identifier, objectId){
+				if(typeof(object)=='object')
+					objectId = objectId.objectId
+
+				if(dataStore.wip[identifier])
+					delete dataStore.wip[identifier][objectId];
+			},
+			list: function(){
+				return dataStore.wip;
+			},
+			isInEdit: function(identifier, object){
+				if(dataStore.wip[identifier])
+					return !!dataStore.wip[identifier][object.objectId]
+			},
+			keepResource: function(identifier, resource){
+				if(dataStore.wip[identifier])
+					for(var i=0; i<resource.length; i++)
+						if(dataStore.wip[identifier][resource[i].objectId])
+							resource[i] = dataStore.wip[identifier][resource[i].objectId]
+				return resource;
 			}
 		},
-		save:function(){
-			var article = $rootScope.temp.article;
-			if(!article.objectId)	// If it is a new article
-				$http.post(config.parseRoot+'classes/article', angular.fromJson(angular.toJson(article))).success(function(data){
-					articleService.parseList();
-				}).error(function(data){
-					console.log('Error: ',data)
+		resource: function(className, identifier, isLive, isLocal, query){
+			var resource = this;
+			resource.listenId = 'DS-'+identifier;
+			resource.config = {
+				className: className,
+				identifier: identifier,
+				isLive: isLive,
+				isLocal: isLocal,
+				query: query,
+			}
+			if(isLive){
+				resource.config.liveRef = new Firebase(config.fireRoot+identifier)
+				resource.config.liveRef.on('value', function(dataSnapshot) {
+					// alert(dataSnapshot.val())
+					if(dataStore.resource[identifier])
+						var lastUpdate = dataStore.resource[identifier].liveSync;
+					if(dataSnapshot.val() != lastUpdate){
+						resource.loadData(dataSnapshot.val())
+					}else{
+						$rootScope.$broadcast(resource.listenId, dataStore.resource[identifier]);
+					}
 				});
-			else	// If it is an edit of an existing article
-				$http.put(config.parseRoot+'classes/article/'+article.objectId, angular.fromJson(angular.toJson(article))).success(function(data){
-					articleService.parseList();
+			}
+			if(!isLocal){
+				if(dataStore.notLocal && dataStore.notLocal.indexOf(resource.config.identifier) == -1)
+					dataStore.notLocal.push(resource.config.identifier)
+			}
+			if(dataStore.resourceList.indexOf(identifier) == -1)
+				dataStore.resourceList.push(identifier)
+
+ 			resource.setQuery = function(query){
+				resource.config.query = query;
+			}
+			resource.loadData = function(lastUpdate){
+				var deferred 	= $q.defer();
+				var className 	= resource.config.className
+				var identifier 	= resource.config.identifier
+				var query = '';
+				if(resource.config.query)
+					query = '?'+resource.config.query
+
+				$http.get(config.parseRoot+'classes/'+className+query).success(function(data){
+					dataStore.resource[identifier] = {
+						identifier: identifier,
+						results: DS.wip.keepResource(identifier, data.results),
+						liveSync: lastUpdate
+					}
+
+					DS.localSave();
+					$rootScope.$broadcast(resource.listenId, dataStore.resource[identifier]);
+					deferred.resolve(dataStore.resource[identifier]);
 				}).error(function(data){
-					console.log('Error: ',data)
+					deferred.reject(data);
 				});
-			$rootScope.temp.article = {};
-			$('#articleAddModal').modal('hide');
+				return deferred.promise;
+			}
+			function fireBroadcast(timestamp){
+				if(resource.config.liveRef)
+					resource.config.liveRef.set(timestamp)
+				else
+					resource.loadData();
+			}
+			this.item = {
+				list: function(){
+					var deferred = $q.defer();
+					var className 	= resource.config.className
+					var identifier 	= resource.config.identifier
+					if(dataStore.resource[identifier]){
+						deferred.resolve(dataStore.resource[identifier]);
+						if(!resource.config.isLive)
+							resource.loadData()
+					}else{
+						resource.loadData().then(function(data){
+							deferred.resolve(data);
+						})
+					}
+					return deferred.promise;
+				},
+				get: function(objectId){
+					var deferred = $q.defer();
+					var className 	= resource.config.className
+					var identifier 	= resource.config.identifier
+
+					var resourceList = dataStore.resource[identifier].results;
+					var requestedResource = false;
+					for(var i=0; i<resourceList.length; i++){
+						if(resourceList[i].objectId == objectId)
+							requestedResource = resourceList[i]
+					}
+					if(requestedResource)
+						deferred.resolve(requestedResource);
+					else
+						$http.get(config.parseRoot+'classes/'+className+'/'+objectId).success(function(data){
+							deferred.resolve(data);
+						}).error(function(data){
+							deferred.reject(data);
+						});
+					return deferred.promise;
+				},
+				save: function(object){
+					if(!object)
+						object = {};
+					if(object.objectId)
+						return this.update(object)
+					else
+						return this.add(object)
+				},
+				add: function(object){
+					var deferred = $q.defer();
+					var className = resource.config.className;
+					var identifier = resource.config.identifier;
+					var objectId = object.objectId;
+
+					$http.post(config.parseRoot+'classes/'+className, object).success(function(data){
+						DS.wip.remove(identifier, objectId)
+						fireBroadcast(data.createdAt)
+						deferred.resolve(data);
+					}).error(function(error, data){
+						resource.loadData();
+						deferred.reject(data);
+					});
+					return deferred.promise;
+				},
+				update: function(object){
+					var deferred = $q.defer();
+					var className = resource.config.className;
+					var identifier = resource.config.identifier;
+					var objectId = object.objectId;
+
+					delete object.objectId;
+					delete object.createdAt;
+					delete object.updatedAt;
+
+					$http.put(config.parseRoot+'classes/'+className+'/'+objectId, object).success(function(data){
+						DS.wip.remove(identifier, objectId)
+						fireBroadcast(data.updatedAt)
+						deferred.resolve(data);
+					}).error(function(error, data){
+						resource.loadData();
+						deferred.reject(data);
+					});
+					return deferred.promise;
+				},
+				remove: function(object){
+					var deferred = $q.defer();
+					var className = resource.config.className
+					var identifier = resource.config.identifier;
+					var objectId = object.objectId;
+
+					$http.delete(config.parseRoot+'classes/'+className+'/'+object.objectId).success(function(data){
+						var deletedAt = new Date();
+						DS.wip.remove(identifier, objectId)
+						fireBroadcast(deletedAt.toISOString())
+						deferred.resolve(data);
+					}).error(function(error, data){
+						resource.loadData();
+						deferred.reject(data);
+					});
+					return deferred.promise;
+				}
+			}
+			this.remove = function(){
+				var identifier = resource.config.identifier;
+
+				var posInNotLocal = dataStore.notLocal.indexOf[identifier]
+				if(posInNotLocal != -1)
+					dataStore.notLocal.splice(posInNotLocal, 1)
+				delete dataStore.resource[identifier]
+				var posInResourceList = dataStore.resourceList.indexOf[identifier]
+				if(posInResourceList != -1)
+					dataStore.notLocal.splice(posInResourceList, 1)
+				delete dataStore.wip[identifier]
+
+				DS.localSave();
+			}
 		},
-		delete:function(article){
-			if(confirm('Are you sure you want to delete: '+article.name+'?'))
-				$http.delete(config.parseRoot+'classes/article/'+article.objectId).success(function(data){
-					articleService.parseList();
-				}).error(function(data){
-					console.log('Error: ',data)
-				});
-		},
-		list:function(category){
-			var returnArray = [];
-			if($rootScope.data && $rootScope.data.articles)
-				for(var i=0; i<$rootScope.data.articles.length; i++)
-					if($rootScope.data.articles[i].categories)
-						if($rootScope.data.articles[i].categories.indexOf(category) != -1)
-							returnArray.push($rootScope.data.articles[i])
-			return returnArray;
-		},
-		get:function(id){
-			if($rootScope.data.articles)
-				for(var i=0; i<$rootScope.data.articles.length; i++)
-					if($rootScope.data.articles[i].objectId == id)
-						return $rootScope.data.articles[i];
-		},
-		getList:function(list){
-			if(list){
-				var arr = [];
-				for(var i=0; i<list.length; i++)
-					arr.push(articleService.get(list[i]))
-				return arr;
+		parse:{
+			pointer:function(className, objectId){
+				return {
+					__type: 	'Pointer',
+					className: 	className,
+					objectId: 	objectId
+				}
+			},
+			acl: function(read, write){
+				var acl = {};
+					acl[$rootScope.user.objectId] = {
+						read: true,
+						write: true
+					}
+					if(read && write)
+						acl['*'] = {
+							read: read,
+							write: write
+						}
+					else if(read)
+						acl['*'] = {
+							read: read
+						}
+				return acl;
 			}
 		}
 	}
-
-	it.articleService = articleService;
-	return articleService;
+	it.DS = DS;
+	return DS;
 });
+
+
+
+
+
+
+
+
+

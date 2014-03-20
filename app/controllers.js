@@ -44,6 +44,15 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 
 
 
+
+
+
+
+
+
+
+
+
 var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeParams, $http, $sce, storeService, categoryService, productService){
 	$scope.view = $routeParams.view;
 	$scope.id = $routeParams.id;
@@ -79,25 +88,85 @@ var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeP
 	it.StoreCtrl=$scope;
 });
 
+
+
+
+
+
+
+
+
+
+
+
 var EducationCtrl = app.controller('EducationCtrl', 
-	function($rootScope, $scope, $routeParams, $http, productService, articleService, fileService){
+	function($rootScope, $scope, $routeParams, $http, dataService, fileService){
 		$scope.view = $routeParams.view;
 		$scope.id = $routeParams.id;
+
+		var articles = new dataService.resource('Article', 'articleList', true, true);
+		articles.item.list().then(function(data){
+			$scope.articles = data;
+		})
+		$rootScope.$on(articles.listenId, function(event, data){
+			$scope.articles = data;
+		})
 
 		var tools = {
 			hash: function(url){
 				window.location.hash = url;
 			},
-			article:articleService,
-			product: productService,
-			file: fileService
+			articleList: articles.item,
+			article:{
+				setPicture: function(details,src){
+					it.details=details
+					it.src=src
+
+					if(!$rootScope.temp.newArticle)
+						$rootScope.temp.newArticle = {};
+					$rootScope.$apply(function(){
+						$rootScope.temp.newArticle.picture = {
+							temp: true,
+							status: 'uploading',
+							class: 'grayscale',
+							name: 'Image Uploading...',
+							src: src
+						};
+					})
+
+					fileService.upload(details,src,function(data){
+						$rootScope.$apply(function(){
+							$rootScope.temp.newArticle.picture = {
+								name: data.name(),
+								src: data.url()
+							}
+						})
+					});
+				},
+				add: function(article){
+					articles.item.save(article)
+					$scope.temp.article = {};
+				}
+			}
 		}
 		$scope.tools = tools;
-
 
 		it.EducationCtrl=$scope;
 	}
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var CommunityCtrl = app.controller('CommunityCtrl', function($rootScope, $scope, $routeParams, $http, angularFire){
 	$scope.view = $routeParams.view;

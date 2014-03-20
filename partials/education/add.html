@@ -2,16 +2,20 @@
 <form id="newArticle" ng-submit="tools.article.save()">
 	<div class="row">
 		<div class="col-md-4 col-lg-3 information">
-			<h1 ng-model="temp.article.title" contenteditable="true">Untitled Article</h1>
-			<div media-manager="tools.article.setPicture" max-width="500" max-height="500">
-				<div ng-hide="temp.article.picture" class="articleImg">Add Picture</div>
-				<img id="articleImgPreview" class="articleImg"
-						ng-show="temp.article.picture" 
-						ng-class="temp.article.picture.class" 
-						ng-src="{{temp.article.picture.src}}" 
-						title="{{temp.article.picture.name}}">
+			<h1 ng-model="temp.newArticle.title" contenteditable="true">Untitled Article</h1>
+			<div media-manager="tools.article.setPicture" class="media-manager" max-width="500" max-height="500">
+				<div ng-hide="temp.newArticle.picture" class="thumbnail">Add Picture</div>
+				<img id="articleImgPreview" ng-show="temp.newArticle.picture" class="thumbnail" 
+						ng-class="temp.newArticle.picture.class" 
+						ng-src="{{temp.newArticle.picture.src}}" 
+						title="{{temp.newArticle.picture.name}}">
+				<span ng-show="temp.newArticle.picture && !temp.newArticle.picture.temp">
+					The picture has been uploaded successfully!  You can finish saving this.</span>
+				<span ng-show="temp.newArticle.picture.temp">
+					Uploading picture... This may take some time.  Please wait for the picture to upload before you save.
+				</span>
 			</div>
-			<textarea ng-model="temp.article.html" class="full"></textarea>	
+			<textarea ng-model="temp.newArticle.html" class="full"></textarea>	
 			<div class="form-group">
 				<label for="productImg" class="control-label">Categories</label>
 				<select multiple ng-model="temp.product.categories">
@@ -21,12 +25,13 @@
 			</div>
 		</div>
 		<div class="col-md-8 col-lg-9">
-			<div class="container" ng-model="temp.article.html" ng-bind-html-unsafe="temp.article.html"></div>
+			<div class="container" ng-model="temp.newArticle.html" ng-bind-html-unsafe="temp.newArticle.html"></div>
 		</div>
 	</div>
 	<input class="btn btn-success pull-right" type="submit" 
-		ng-hide="temp.article.picture.temp" value="Save Article">
+		ng-hide="temp.newArticle.picture.temp" 
+		ng-click="tools.article.add(temp.newArticle)" value="Save Article">
 	<input type="button" class="btn btn-inverse pull-right" 
-		ng-show="temp.article.picture.temp" 
+		ng-show="temp.newArticle.picture.temp" 
 		title="Please wait for the picture to upload." value="Wait">
 </form>

@@ -1,5 +1,5 @@
 body{
-	/*background-image: url('http://st.gdefon.com/wallpapers_original/wallpapers/331408_leto_yasnoe_nebo_cvety_salatovyj_zabor_pole_doroga_1920x1080_(www.GdeFon.ru).jpg');*/
+	background-image: url('http://st.gdefon.com/wallpapers_original/wallpapers/331408_leto_yasnoe_nebo_cvety_salatovyj_zabor_pole_doroga_1920x1080_(www.GdeFon.ru).jpg');
 	background-attachment: fixed;
 }
 
@@ -7,26 +7,27 @@ header{
 	background: #631;
 }
 .footer{
-	position: fixed;
+	position: relative;
 	width: 100%;
 	bottom: 0px;
 	z-index: -2;
 }
 
 .logo{
+	padding: 10px;
+	height: 125px;
 	background: #FFE4C4;
 	border-radius: 1px;
-	padding: 10px;
 	box-shadow: 0px 0px 30px #FFF;
 }
 
 #maincontainer {
 	/*background: rgba(255, 255, 255, 0.5);*/
-	color: #111;
-	margin-bottom: 450px;
+	/*color: #111;*/
+	/*margin-bottom: 450px;*/
 }
 #maincontainer .mainview {
-	background: #FFF;
+	/*background: #FFF;*/
 	z-index: 1;
 }
 
@@ -39,12 +40,18 @@ header{
 #sidebar{
 	margin-top: -40px;
 	min-height: 1000px;
-	background: #FFF;
+	/* background: #FFF; */
 }
 #sidebar h1{
 	text-align: center;
-	color: #029440;
-	border-bottom: 2px double #029440;
+	/* color: #029440; */
+	/* border-bottom: 2px double #029440; */
+	background: rgba(255,255,255,.8);
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+}
+#sidebar ul{
+	background: rgba(255,255,255,.3)
 }
 #sidebar ul>li>a{
 	border-radius: 0px;
@@ -58,9 +65,10 @@ header{
 #sidebar ul>li>ul>li a{
 	padding: 5px 10px;
 	display: block;
-	border: 1px solid #CCC;;
+	border-top: 1px solid #CCC;;
 	border-left: 3px solid #CCC;
 	background: #EEE;
+	margin: 0px 50px 0px 0px;
 }
 #sidebar .add{
     padding: 10px;
@@ -73,7 +81,7 @@ header{
 #main{
 	min-height: 1000px;
 	margin-top: -40px;
-	background: #FFF;
+	/*background: #FFF;*/
 	border-left: 1px dashed #CCC;
 }
 #main>h1{
@@ -86,9 +94,13 @@ header{
     margin-top: 20px;
 }
 .card{
-    min-height: 200px;
-    border: 1px solid #CCC;
     margin: 15px 0px;
+    min-height: 200px;
+    background: #FFF;
+    color: #000;
+    border: 1px solid #CCC;
+    border-radius: 7px;
+    overflow: hidden;
 }
 .card h3{
 	text-align: center;
