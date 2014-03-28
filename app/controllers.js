@@ -1,19 +1,19 @@
-var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routeParams, $http, userService, storeService, categoryService, productService, dataService){
+var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routeParams, $http, userService, storeService, categoryService, dataService){
 	$rootScope.view = $routeParams.view;
 	$rootScope.id = $routeParams.id;
 	$rootScope.subId = $routeParams.subId;
 
 	function setup(){
-		console.log('Setting Up Data!', $rootScope.data)
 		if($rootScope.user==undefined)
 			$scope.tools.user.init();
 		if(!$rootScope.data){
+			console.log('Setting Up Data!')
 			$rootScope.temp = {}
+			$rootScope.cart = []
 			$rootScope.data = {
 				education: 	{},
 				community: 	{},
 				store: 		{},
-				cart: 		[],
 				blog: 		{},
 			}
 			
@@ -28,7 +28,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 				$rootScope.data.education.articles = data;
 			})
 
-			var herbCategories = new dataService.resource('category', 'herbCategoryList', true, true);
+			var herbCategories = new dataService.resource('category', 'herbCategoryList', true, true, 'orderBy=sequence');
 			$rootScope.r.herbCategories = herbCategories;
 			herbCategories.item.list().then(function(data){
 				$rootScope.data.store.categories = data.results;
@@ -79,7 +79,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 		user: userService,
 		store: storeService,
 		category: categoryService,
-		product: productService
+		// product: productService
 	}
 	$scope.tools = tools;
 	setup();
@@ -97,30 +97,56 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 
 
 
-var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeParams, $http, $sce, storeService, categoryService, productService){
+var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeParams, $http, $sce, storeService, categoryService){
 	var tools = {
 		hash: function(url){
 			window.location.hash = url;
 		},
-		setFeatured:function(){
-			// $scope.featured = tools.product.getList($rootScope.data.store.featured);
+		productList: $rootScope.r.products.item,
+		product: {
+			add: function(){
+				$('#productAddModal').modal('show');
+			},
+			edit: function(product){
+				$rootScope.temp.product = angular.fromJson(angular.toJson(product));
+				delete $rootScope.temp.product.safeDescription;
+				$('#productAddModal').modal('show');
+			},
+			save: function(tempProduct){
+				tools.productList.save(tempProduct).then(function(data){
+					$rootScope.product = tempProduct;
+					$rootScope.product.safeDescription = $sce.trustAsHtml($rootScope.product.description);
+					$('#productAddModal').modal('hide');
+				})
+			},
+			fromCat: function(category){
+				var returnArray = [];
+				if($rootScope.data && $rootScope.data.store.products)
+					for(var i=0; i<$rootScope.data.store.products.length; i++)
+						if($rootScope.data.store.products[i].categories)
+							if($rootScope.data.store.products[i].categories.indexOf(category) != -1)
+								returnArray.push($rootScope.data.store.products[i])
+				return returnArray;
+			}
 		},
-		store: storeService,
+
 		category: categoryService,
-		product: productService
+		store: storeService,
+		// product: productService
 	}
 	$scope.tools = tools;
 
-	if($scope.view=='product' && $routeParams.id)
-		$rootScope.$watch('data.store.products', function (products) {
-			$scope.product = tools.product.get($routeParams.id);
-			$scope.product.description = $sce.trustAsHtml($scope.product.description);
-		}, true);
+	if($routeParams.view=='product' && $routeParams.id){
+		tools.productList.get($routeParams.id).then(function(product){
+			$rootScope.product = product;
+			$rootScope.product.safeDescription = $sce.trustAsHtml($rootScope.product.description);
+		})
+	}
 
-	if($scope.view=='category' && $routeParams.id)
-		$rootScope.$watch('data.store.categories', function (categories) {
-			$scope.category = tools.category.get($routeParams.id);
-		}, true);
+	if($routeParams.view=='category' && $routeParams.id)
+		tools.category.get($routeParams.id).then(function(category){
+			$scope.category = category;
+		})
 
 	it.StoreCtrl=$scope;
 });
@@ -142,7 +168,7 @@ var EducationCtrl = app.controller('EducationCtrl',
 			hash: function(url){
 				window.location.hash = url;
 			},
-			articleList: articles.item,
+			articleList: $rootScope.r.articles.item,
 			article:{
 				setPicture: function(details,src){
 					it.details=details
@@ -170,7 +196,7 @@ var EducationCtrl = app.controller('EducationCtrl',
 					});
 				},
 				add: function(article){
-					articles.item.save(article)
+					tools.articleList.save(article)
 					$scope.temp.article = {};
 				}
 			}

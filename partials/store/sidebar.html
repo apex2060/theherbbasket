@@ -1,14 +1,14 @@
 <h1 class="old_rust">Shop</h1>
 <ul>
 	<li ng-show="user.isAdmin"><a href="#/store/admin">Admin</a></li>
-	<li ng-repeat="category in data.store.categories" class="parent">
-		<a href="#/store/category/{{category.title}}" class="old_rust">{{category.title}} 
+	<li ng-repeat="category in data.store.categories | orderBy:'sequence'" class="parent">
+		<a href="#/store/category/{{category.objectId}}" class="old_rust">{{category.title}} 
 			<i ng-show="user.isAdmin" ng-click="tools.category.delete(category)" class="fa fa-trash-o fa-fw"></i>
 			<i ng-show="user.isAdmin" ng-click="tools.category.edit(category)" class="fa fa-pencil fa-fw"></i>
 		</a>
 		<ul class="child">
 			<li ng-repeat="sub in category.children">
-				<a href="#/store/subCategory/{{category.title}}/{{sub.title}}" class="clearfix">{{sub.title}} 
+				<a href="#/store/subCategory/{{category.objectId}}/{{sub.title}}" class="clearfix">{{sub.title}} 
 					<i ng-show="user.isAdmin" ng-click="tools.category.sub.delete(category,sub)" class="fa fa-trash-o fa-fw"></i>
 					<i ng-show="user.isAdmin" ng-click="tools.category.sub.edit(category,sub)" class="fa fa-pencil fa-fw"></i>
 				</a>

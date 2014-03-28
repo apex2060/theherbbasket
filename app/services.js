@@ -184,7 +184,7 @@ app.factory('storeService', function ($rootScope, $http, config) {
 
 
 
-app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
+app.factory('categoryService', function ($rootScope, $timeout, $http, $q, config, dataService) {
 	var categoryService = {
 		preventDefault:function(onOff){
 			if(typeof(onOff)=='string')
@@ -194,13 +194,6 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 					onOff.preventDefault()
 				else
 					return;
-		},
-		parseList:function(){
-			$http.get(config.parseRoot+'classes/category?order=sequence').success(function(data){
-				$rootScope.data.store.categories = data.results;
-			}).error(function(data){
-				console.log('Error: ',data)
-			});
 		},
 		add:function(){
 			$('#categoryAddModal').modal('show');
@@ -222,20 +215,9 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 			delete category.createdAt;
 			delete category.updatedAt;
 
-			if(!category.objectId){
+			if(!category.objectId)
 				category.sequence = $rootScope.data.store.categories.length;
-				$http.post(config.parseRoot+'classes/category', angular.fromJson(angular.toJson(category))).success(function(data){
-					categoryService.parseList();
-				}).error(function(data){
-					console.log('Error: ',data)
-				});
-			}else{
-				$http.put(config.parseRoot+'classes/category/'+category.objectId, category).success(function(data){
-					categoryService.parseList();
-				}).error(function(data){
-					console.log('Error: ',data)
-				});
-			}
+			$rootScope.r.herbCategories.item.save(category)
 
 			$rootScope.temp.category={};
 			$('#categoryAddModal').modal('hide');
@@ -244,12 +226,7 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 			categoryService.preventDefault('on');
 			if(confirm('Are you sure you want to delete: "'+category.title+'"?')){
 				if(category && category.objectId){
-					$http.delete(config.parseRoot+'classes/category/'+category.objectId).success(function(data){
-						console.log('Removed Object!',data);
-						categoryService.parseList();
-					}).error(function(data){
-						console.log('Error: ',data)
-					});
+					$rootScope.r.herbCategories.item.remove(category)
 				}
 			}
 			$timeout(function(){
@@ -257,10 +234,7 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 			}, 1000);
 		},
 		get:function(id){
-			if($rootScope.data.store.categories)
-				for(var i=0; i<$rootScope.data.store.categories.length; i++)
-					if($rootScope.data.store.categories[i].title == id)
-						return $rootScope.data.store.categories[i];
+			return $rootScope.r.herbCategories.item.get(id)
 		},
 		sub:{
 			add:function(category){
@@ -291,11 +265,7 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 				delete uCategory.createdAt;
 				delete uCategory.updatedAt;
 
-				$http.put(config.parseRoot+'classes/category/'+uCategory.objectId, uCategory).success(function(data){
-					categoryService.parseList();
-				}).error(function(data){
-					console.log('Error: ',data)
-				});
+				$rootScope.r.herbCategories.item.save(uCategory)
 
 				$rootScope.temp.category={};
 				$rootScope.temp.sub={};
@@ -311,11 +281,7 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 								category.children.splice(i,1)
 							}
 						}
-						$http.put(config.parseRoot+'classes/category/'+category.objectId, category).success(function(data){
-							categoryService.parseList();
-						}).error(function(data){
-							console.log('Error: ',data)
-						});
+						$rootScope.r.herbCategories.item.save(category)
 					}
 				}
 				$timeout(function(){
@@ -331,92 +297,6 @@ app.factory('categoryService', function ($rootScope, $timeout, $http, config) {
 
 	it.categoryService = categoryService;
 	return categoryService;
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.factory('productService', function ($rootScope, $http, config, dataService) {
-	var productService = {
-		add:function(){
-			$('#productAddModal').modal('show');
-		},
-		edit:function(product){
-			$rootScope.temp.product = product;
-			$('#productAddModal').modal('show');
-		},
-		save:function(){
-			var product = $rootScope.temp.product;
-			if(!product.objectId)	// If it is a new product
-				$http.post(config.parseRoot+'classes/product', angular.fromJson(angular.toJson(product))).success(function(data){
-					productService.parseList();
-				}).error(function(data){
-					console.log('Error: ',data)
-				});
-			else	// If it is an edit of an existing product
-				$http.put(config.parseRoot+'classes/product/'+product.objectId, angular.fromJson(angular.toJson(product))).success(function(data){
-					productService.parseList();
-				}).error(function(data){
-					console.log('Error: ',data)
-				});
-			$rootScope.temp.product = {};
-			$('#productAddModal').modal('hide');
-		},
-		delete:function(product){
-			if(confirm('Are you sure you want to delete: '+product.name+'?'))
-				$http.delete(config.parseRoot+'classes/product/'+product.objectId).success(function(data){
-					productService.parseList();
-				}).error(function(data){
-					console.log('Error: ',data)
-				});
-		},
-		list:function(category){
-			var returnArray = [];
-			if($rootScope.data && $rootScope.data.store.products)
-				for(var i=0; i<$rootScope.data.store.products.length; i++)
-					if($rootScope.data.store.products[i].categories)
-						if($rootScope.data.store.products[i].categories.indexOf(category) != -1)
-							returnArray.push($rootScope.data.store.products[i])
-			return returnArray;
-		},
-		get:function(id){
-			if($rootScope.data.store.products)
-				for(var i=0; i<$rootScope.data.store.products.length; i++)
-					if($rootScope.data.store.products[i].objectId == id)
-						return $rootScope.data.store.products[i];
-		},
-		getList:function(list){
-			if(list){
-				var arr = [];
-				for(var i=0; i<list.length; i++)
-					arr.push(productService.get(list[i]))
-				return arr;
-			}
-		}
-	}
-
-	it.productService = productService;
-	return productService;
 });
 
 
@@ -633,21 +513,18 @@ app.factory('dataService', function ($rootScope, $http, $q, config, Firebase) {
 					var deferred = $q.defer();
 					var className 	= resource.config.className
 					var identifier 	= resource.config.identifier
-
-					var resourceList = dataStore.resource[identifier].results;
-					var requestedResource = false;
-					for(var i=0; i<resourceList.length; i++){
-						if(resourceList[i].objectId == objectId)
-							requestedResource = resourceList[i]
-					}
-					if(requestedResource)
-						deferred.resolve(requestedResource);
-					else
+					if(dataStore.resource[identifier]){
+						var resourceList = dataStore.resource[identifier].results;
+						for(var i=0; i<resourceList.length; i++)
+							if(resourceList[i].objectId == objectId)
+								deferred.resolve(resourceList[i]);
+					}else{
 						$http.get(config.parseRoot+'classes/'+className+'/'+objectId).success(function(data){
 							deferred.resolve(data);
 						}).error(function(data){
 							deferred.reject(data);
 						});
+					}
 					return deferred.promise;
 				},
 				save: function(object){
@@ -718,10 +595,13 @@ app.factory('dataService', function ($rootScope, $http, $q, config, Firebase) {
 				var posInNotLocal = dataStore.notLocal.indexOf[identifier]
 				if(posInNotLocal != -1)
 					dataStore.notLocal.splice(posInNotLocal, 1)
+
 				delete dataStore.resource[identifier]
 				var posInResourceList = dataStore.resourceList.indexOf[identifier]
+				
 				if(posInResourceList != -1)
 					dataStore.notLocal.splice(posInResourceList, 1)
+				
 				delete dataStore.wip[identifier]
 
 				DS.localSave();

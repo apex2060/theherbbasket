@@ -1,26 +1,26 @@
 <div class="product">
 	<div class="row">
-		<div class="col-xs-12 col-md-3">
-			<div class="prod_picture">
-				<img src="{{product.img}}" alt="Picture of {{product.name}}">
+		<div class="col-md-10 col-md-offset-1 old_rust">
+			<div class="info">
+				<div class="picture">
+					<img src="{{product.img}}" alt="Picture of {{product.name}}">
+				</div>
+				<div class="details">
+					<h2>{{product.name}}</h2>
+					<h3>{{product.price | currency}}</h3>
+					<a class="btn btn-info" ng-click="tools.store.addToCart(product)" title="Buy">{{'SITE.STORE.ADD_TO_CART' | translate}}</a>
+					<a class="btn btn-warning" ng-click="tools.product.edit(product)" ng-show="user.isAdmin" title="Edit">
+						<i class="fa fa-pencil"></i>
+					</a>
+					<a class="btn btn-danger" ng-click="tools.product.delete(product)" ng-show="user.isAdmin" title="Delete">
+						<i class="fa fa-trash-o"></i>
+					</a>
+				</div>
 			</div>
-		</div>
-		<div class="col-xs-12 col-md-9">
-			<div class="details">			
-				<h2>{{product.name}}</h2>
-				<h3>{{product.price | currency}}</h3>
-				<a class="btn btn-info" ng-click="tools.store.addToCart(product)" title="Buy">{{'SITE.STORE.ADD_TO_CART' | translate}}</a>
-				<a class="btn btn-warning" ng-click="tools.product.edit(product)" ng-show="user.isAdmin" title="Edit"><i class="fa fa-pencil"></i></a>
-				<a class="btn btn-danger" ng-click="tools.product.delete(product)" ng-show="user.isAdmin" title="Delete"><i class="fa fa-trash-o"></i></a>
-				<div class="description old_rust" ng-bind-html="product.description"></div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-12 col-md-9 col-md-offset-3">
+			<div class="description" ng-bind-html="product.safeDescription"></div>
 			<div class="reviews">
 				<p>{{'SITE.STORE.PRODUCT_REVIEWS' | translate}}</p>
-				<div class="fb-comments" data-href="http://theherbbasket.sharecreate.com/#/store/product/{{prodId}}" data-numposts="5" data-colorscheme="light"></div>
+				<div class="fb-comments" data-href="http://theherbbasket.sharecreate.com/#/store/product/{{id}}" data-numposts="5" data-colorscheme="light"></div>
 			</div>
 		</div>
 	</div>
