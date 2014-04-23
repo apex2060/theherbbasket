@@ -97,7 +97,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 
 
 
-var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeParams, $http, $sce, storeService, categoryService){
+var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeParams, $http, $sce, config, storeService, categoryService){
 	var tools = {
 		hash: function(url){
 			window.location.hash = url;
@@ -129,7 +129,14 @@ var StoreCtrl = app.controller('StoreCtrl', function($rootScope, $scope, $routeP
 				return returnArray;
 			}
 		},
-
+		checkout:function(cart){
+			storeService.checkout(cart).then(function(response){
+				if(response.status=='Success'){
+					$scope.cart = [];
+					tools.hash('store/checkoutSuccess');
+				}
+			})
+		},
 		category: categoryService,
 		store: storeService,
 		// product: productService

@@ -117,7 +117,7 @@ app.factory('userService', function ($rootScope, $http, config) {
 
 
 
-app.factory('storeService', function ($rootScope, $http, config) {
+app.factory('storeService', function ($rootScope, $http, $q, config) {
 	var storeService = {
 		addToCart:function(product){
 			if(product)
@@ -157,6 +157,44 @@ app.factory('storeService', function ($rootScope, $http, config) {
 					console.log('Error: ',data)
 				});
 			}
+		},
+		checkout:function(cart){
+			var deferred 	= $q.defer();
+			var handler = StripeCheckout.configure({
+				key: 'pk_test_z6wFxrdjDPnmyvVFwLiBbzqq',
+				image: '/img/basket.png',
+				token: function(token, args) {
+					storeService.process(cart, token).then(function(results){
+						deferred.resolve(results);
+					});
+				}
+			});
+
+			var total = 0;
+			for(var i=0; i<cart.length; i++)
+				total += Number(cart[i].price)
+			handler.open({
+				name: 'Secure Checkout',
+				description: 'Total: '+ (Number(total)+5),
+				amount: ((Number(total)+5)*100)
+			});
+			return deferred.promise;
+		},
+		process:function(cart, token){
+			var deferred 	= $q.defer();
+			var itemIds = [];
+			for(var i=0; i<cart.length; i++)
+				itemIds.push(cart[i].objectId)
+			var request = {
+				cart: itemIds,
+				token: token
+			}
+			$http.post(config.parseRoot+'functions/checkout', request).success(function(data){
+				deferred.resolve(data.result);
+			}).error(function(data){
+				deferred.resolve(data);
+			});
+			return deferred.promise;
 		}
 	}
 	
