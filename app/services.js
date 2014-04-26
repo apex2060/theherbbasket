@@ -174,8 +174,8 @@ app.factory('storeService', function ($rootScope, $http, $q, config) {
 			for(var i=0; i<cart.length; i++)
 				total += Number(cart[i].price)
 			handler.open({
-				name: 'Secure Checkout',
-				description: 'Total: '+ (Number(total)+5),
+				name: 'Basket Payment',
+				description: 'Thanks for shopping with us!',
 				amount: ((Number(total)+5)*100)
 			});
 			return deferred.promise;
