@@ -206,6 +206,21 @@ var EducationCtrl = app.controller('EducationCtrl',
 					tools.articleList.save(article)
 					$scope.temp.article = {};
 				}
+			},
+			chat:{
+				init:function(){
+					this.webrtc = new SimpleWebRTC({
+						localVideoEl: 'localVideo',
+						remoteVideosEl: 'remoteVideos',
+						autoRequestMedia: true
+					});
+				},
+				call:function(){
+					var webrtc = this.webrtc;
+					webrtc.on('readyToCall', function () {
+						webrtc.joinRoom('funchat');
+					});
+				}
 			}
 		}
 		$scope.tools = tools;

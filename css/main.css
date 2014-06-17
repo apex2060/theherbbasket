@@ -191,13 +191,23 @@ header{
 }
 
 .videoplaceholder {
-	height: 300px;
+	width: 40%;
+	margin: 5%;
 	background: #AAA;
 }.videoplaceholder h1{
 	line-height: 300px;
 	color:pink
 }
-
+#remoteVideos video {
+	width: 50%;
+	float: left;
+	padding: 15px;
+}
+#localVideo {
+	width: 25%;
+	float: right;
+	padding: 15px;
+}
 
 
 /*EDUCATION PAGES*/

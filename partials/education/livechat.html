@@ -1,2 +1,8 @@
-<h1>Live Chat</h1>
-<p></p>
+<div ng-init="tools.chat.init()">
+	<h1>Live Chat</h1>
+	<button type="button" class="btn btn-default" ng-click="tools.chat.call()">Begin Chat</button>
+	<div class="videos">
+		<div id="remoteVideos"></div>
+		<video id="localVideo"></video>
+	</div>
+</div>
